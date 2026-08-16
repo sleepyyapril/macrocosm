@@ -101,7 +101,7 @@ public sealed partial class InteractionPopupSystem : EntitySystem
         if (TryComp<PettingChanceModifierComponent>(user, out var pettingChance)
             && _entityWhitelist.IsWhitelistPassOrNull(pettingChance.TargetWhitelist, target)
             && _entityWhitelist.IsWhitelistFailOrNull(pettingChance.TargetBlacklist, target))
-            successChance *= Math.Clamp(pettingChance.Modifier, 0, 1);
+            successChance = Math.Clamp(successChance * pettingChance.Modifier, 0, 1);
         // MACRO END
 
         if (_random.Prob(successChance)) // MACRO: component.SuccessChance -> successChance
